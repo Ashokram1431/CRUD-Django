@@ -9,8 +9,12 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css'%}">
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css'%}">
+    <style>
+        tr,th{
+            text-align: center;
+        }
+    </style>
 </head>
-
 <body>
     <div class="container-fluid">
         <div class="col-md-offset-1 col-md-3">
@@ -40,6 +44,9 @@
         </div>
         <div class="col-md-8">
             <h3 class="page-header text-primary text-center">Details</h3>
+            <form action="">
+                <input type="text" id="search" autofocus autocomplete="off" class="searchbox" value="" placeholder="Search here...">
+            </form><br>
             {% if datas %}
             <table class="table table-bordered">
                 <thead>
@@ -56,13 +63,13 @@
 
                 {% for data in datas %}
                 <tbody>
-                    <tr>
+                    <tr class="li">
                         <td>{{forloop.counter}}</td>
-                        <td>{{data.Name}}</td>
-                        <td>{{data.Age}}</td>
-                        <td>{{data.Address}}</td>
-                        <td>{{data.Contact}}</td>
-                        <td>{{data.Mail}}</td>
+                        <td >{{data.Name}}</td>
+                        <td >{{data.Age}}</td>
+                        <td >{{data.Address}}</td>
+                        <td >{{data.Contact}}</td>
+                        <td >{{data.Mail}}</td>
                         <td>
                             <a class="btn btn-success" href="updateData/{{data.id}}">Update</a>
                             <a class="btn btn-danger" href="deleteData/{{data.id}}">Delete</a>
@@ -81,5 +88,18 @@
         </div>
     </div>
 </body>
-
+<script type="text/javascript">
+	document.getElementById('search').addEventListener('keyup',Keyupfun)
+	function Keyupfun(){
+		var a=document.querySelectorAll('.li');
+		for (var i = 0;i<a.length; i++) {
+			var val=document.getElementById('search').value.toLowerCase();
+			if (a[i].innerHTML.toLowerCase().indexOf(val)!=-1) {
+				a[i].style.display='';
+			}
+			else{
+				a[i].style.display='none';
+			}
+		}
+	}</script>
 </html>
